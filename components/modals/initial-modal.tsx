@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { FileUpload } from "@/components/file-upload";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -40,6 +42,9 @@ const formSchema = z.object({
 
 export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
+
+  const router = useRouter();
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -55,10 +60,21 @@ export const InitialModal = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.post("/api/servers", values);
+
+      form.reset();
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
   // "z.infer<typeof formSchema>" - это тип данных, который извлекается (инферируется) из схемы "formSchema", определенной с использованием библиотеки "zod".
   // Указание <typeof formSchema> здесь для того чтобы извлечь типа из значения, которое предоставляется formSchema
+
+  // "await axios.post("/api/servers", values);" в этой строке выполняется POST-запрос с использованием Axios. Запрос отправляется на URL "/api/servers" с данными values
+  // если запрос успешен, то выолняется сбрасывание формы: "form.reset()"
+  // "router.refresh()" - это для обновления маршрута навигации с помощью router
 
   if (!isMounted) {
     return null;
