@@ -65,6 +65,7 @@ export const InitialModal = () => {
 
       form.reset();
       router.refresh();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -75,6 +76,7 @@ export const InitialModal = () => {
   // "await axios.post("/api/servers", values);" в этой строке выполняется POST-запрос с использованием Axios. Запрос отправляется на URL "/api/servers" с данными values
   // если запрос успешен, то выолняется сбрасывание формы: "form.reset()"
   // "router.refresh()" - это для обновления маршрута навигации с помощью router
+  // "window.location.reload()" - перезагружаем текущую страницу браузера без изменений в приложении
 
   if (!isMounted) {
     return null;
