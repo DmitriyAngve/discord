@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { currrentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { MemberRole } from "@prisma/client";
 
 export async function POST(req: Request) {
   try {
@@ -19,8 +20,16 @@ export async function POST(req: Request) {
         name,
         imageUrl,
         inviteCode: uuidv4(), // код для создания уникального кода приглашения (invite Code) с использованием функции "uuidv4" импортированной из библиотеки "uuid"
+        channels: {
+          create: [{ name: "general", profileId: profile.id }],
+        }, // создание каналов для созданного сервера. Создается один канал с именем "general"
+        members: {
+          create: [{ profileId: profile.id, role: MemberRole.ADMIN }], // тут создается члены, присоединенные к серверу. В моем случае один пользователь с ролью "ADMIN"
+        },
       },
     });
+
+    return NextResponse.json(server);
   } catch (error) {
     console.log("[SERVERS_POST]", error);
   }
