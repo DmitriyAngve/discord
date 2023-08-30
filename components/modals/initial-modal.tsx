@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,6 +38,11 @@ const formSchema = z.object({
 // "imageUrl: z.string().min(1, {})" - то же самое.
 
 export const InitialModal = () => {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,6 +58,10 @@ export const InitialModal = () => {
   };
   // "z.infer<typeof formSchema>" - это тип данных, который извлекается (инферируется) из схемы "formSchema", определенной с использованием библиотеки "zod".
   // Указание <typeof formSchema> здесь для того чтобы извлечь типа из значения, которое предоставляется formSchema
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <Dialog open>
