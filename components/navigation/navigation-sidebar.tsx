@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import { currentProfile } from "@/lib/current-profile";
 
 import { NavigationAction } from "./navigation-action";
-import { NavigationItem } from "./navigaion-item";
+import { NavigationItem } from "./navigation-item";
 
 import { UserButton } from "@clerk/nextjs";
 
