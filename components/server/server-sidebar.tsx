@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 
 import { redirect } from "next/navigation";
 
+import { ServerHeader } from "./server-header";
+
 interface ServerSidebarProps {
   serverId: string;
 }
@@ -48,7 +50,21 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   );
   const members = server?.members.filter(
     (member) => member.profileId !== profile.id
-  );
+  ); // фильтрует, убирая члена, которым является сам пользователь, потмоу что "profileId" приходит из "currentProfile"
 
-  return <div>Server Sidebar Component</div>;
+  if (!server) {
+    return redirect("/");
+  }
+
+  // определим роль пользователя
+
+  const role = server.members.find(
+    (member) => member.profileId === profile.id
+  )?.role; // если убрать "?" то появляется возможность найти себя в списке пользователей
+
+  return (
+    <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+      <ServerHeader server={server} role={role} />
+    </div>
+  );
 };
