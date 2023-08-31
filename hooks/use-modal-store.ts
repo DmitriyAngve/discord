@@ -1,7 +1,7 @@
 // хук для контролирования всеъ модулей в зустанд
 import { create } from "zustand";
 
-export type ModalType = "createServer";
+export type ModalType = "createServer"; // определяет пользовательский тип "ModalType", который имеет одно значение "createServer" - это ограниченный набор возможных типов модальных окон
 
 interface ModalStore {
   type: ModalType | null;
@@ -17,3 +17,4 @@ export const useModal = create<ModalStore>((set) => ({
   onOpen: (type) => set({ isOpen: true, type }),
   onClose: () => set({ type: null, isOpen: false }),
 }));
+// "export const useModal = create<ModalStore>((set) => ({})" - эта строка создает хранилище Zustand, используя функцию "create". Внутри функции "create" определенно начальное состояние модального окна, где "type" равно "null" и тд
