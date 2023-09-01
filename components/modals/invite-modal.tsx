@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export const InviteModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
+  const { onOpen, isOpen, onClose, type, data } = useModal();
   const origin = useOrigin();
 
   const isModalOpen = isOpen && type === "invite";
@@ -46,7 +46,9 @@ export const InviteModal = () => {
 
       const response = await axios.patch(
         `/api/servers/${server?.id}/invite-code`
-      );
+      ); // use axios patch to refresh invite code
+
+      onOpen("invite", { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
@@ -68,10 +70,11 @@ export const InviteModal = () => {
           </Label>
           <div className="flex items-center mt-2 gap-x-2">
             <Input
+              disabled={isLoading}
               className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
               value={inviteUrl}
             />
-            <Button onClick={onCopy} size="icon">
+            <Button disabled={isLoading} onClick={onCopy} size="icon">
               {/* size-{icon} - это значение для аттрибута size определяет так, чтобы кнопка подходила под размер отображения иконки  */}
               {copied ? (
                 <Check className="w-4 h-4" />
@@ -81,6 +84,8 @@ export const InviteModal = () => {
             </Button>
           </div>
           <Button
+            onClick={onNew}
+            disabled={isLoading}
             variant="link"
             size="sm"
             className="text-xs text-zinc-500 mt-4"
