@@ -1,8 +1,13 @@
 "use client";
 
-import { useModal } from "@/hooks/use-modal-store";
+import axios from "axios";
 
-import { Copy, RefreshCw } from "lucide-react";
+import { useState } from "react";
+
+import { useModal } from "@/hooks/use-modal-store";
+import { useOrigin } from "@/hooks/use-origin";
+
+import { Check, Copy, RefreshCw } from "lucide-react";
 
 import {
   Dialog,
@@ -15,9 +20,39 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export const InviteModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
+  const origin = useOrigin();
 
   const isModalOpen = isOpen && type === "invite";
+  const { server } = data;
+  const inviteUrl = `${origin}/invite/${server?.inviteCode}`; // "inviteCode" приходит с базы данных
+
+  const [copied, setCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(inviteUrl); // код для копирования URL
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
+  // function for regenerate link
+  const onNew = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/invite-code`
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -34,11 +69,15 @@ export const InviteModal = () => {
           <div className="flex items-center mt-2 gap-x-2">
             <Input
               className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-              value="invite-link"
+              value={inviteUrl}
             />
-            <Button size="icon">
+            <Button onClick={onCopy} size="icon">
               {/* size-{icon} - это значение для аттрибута size определяет так, чтобы кнопка подходила под размер отображения иконки  */}
-              <Copy className="w-4 h-4" />
+              {copied ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
             </Button>
           </div>
           <Button
