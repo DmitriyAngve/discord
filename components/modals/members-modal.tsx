@@ -80,7 +80,7 @@ export const MembersModal = () => {
                       <DropdownMenuContent side="left">
                         <DropdownMenuSub>
                           <DropdownMenuSubTrigger className="flex items-center">
-                            <ShieldQuestion />
+                            <ShieldQuestion className="" />
                           </DropdownMenuSubTrigger>
                         </DropdownMenuSub>
                       </DropdownMenuContent>
