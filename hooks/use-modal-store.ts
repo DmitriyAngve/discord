@@ -3,7 +3,12 @@
 import { Server } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createServer" | "invite" | "editServer" | "members";
+export type ModalType =
+  | "createServer"
+  | "invite"
+  | "editServer"
+  | "members"
+  | "createChannel";
 // определяет пользовательский тип "ModalType", который имеет одно значение "createServer" - это ограниченный набор возможных типов модальных окон
 interface ModalData {
   server?: Server;
