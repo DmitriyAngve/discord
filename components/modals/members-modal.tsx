@@ -61,6 +61,29 @@ export const MembersModal = () => {
   const isModalOpen = isOpen && type === "members";
   const { server } = data as { server: ServerWithMembersWithProfiles };
 
+  const onKick = async (memberId: string) => {
+    try {
+      setLoadingId(memberId); // устанавливаем состояние "loadindId"б чтобы показать, что идет процесс загрузки
+      const url = qs.stringifyUrl({
+        // создаем URL-адрес для запроса, используя библиотеку "qs".
+        url: `/api/members/${memberId}`, // Указываем конкретного участника тут
+        query: {
+          serverId: server?.id,
+        },
+      });
+
+      const response = await axios.delete(url); //по полученному "url" делаем "delete". После успехи ответ получаем в "response"
+
+      router.refresh(); // обновляем маршрут
+
+      onOpen("members", { server: response.data }); // эта функция открывает секцию на сервере после удаления участника, в неё передаем два аргумента: строку "members" и объект с данными сервера "response.data"
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId(""); // убираем состояние загрузки, так как операция завершилась
+    }
+  };
+
   const onRoleChange = async (memberId: string, role: MemberRole) => {
     try {
       setLoadingId(memberId);
@@ -68,7 +91,6 @@ export const MembersModal = () => {
         url: `/api/members/${memberId}`,
         query: {
           serverId: server?.id,
-          memberId,
         },
       });
 

@@ -26,10 +26,11 @@ export async function PATCH(
     }
 
     const server = await db.server.update({
+      // берем базу данных и обновляем сервер с помощью "update"
       where: {
         id: serverId,
         profileId: profile.id,
-      },
+      }, // объявляем место где будем искать
       data: {
         members: {
           update: {
@@ -37,11 +38,11 @@ export async function PATCH(
               id: params.memberId,
               profileId: {
                 not: profile.id,
-              },
+              }, // ищем пользователя, которого хотим обновить (его "profileId" не должен совпадать с "profile.id") - это чтобы не обновить самого Админа.
             },
             data: {
               role,
-            },
+            }, // присваиваем новую роль
           },
         },
       },
@@ -49,13 +50,15 @@ export async function PATCH(
         members: {
           include: {
             profile: true,
-          },
+          }, // после обновления сервера указываем какие данные хотим получить (всех пользователей и информацию об их профилях)
           orderBy: {
             role: "asc",
-          },
+          }, // к тому же результат выдать отсортированным по ролям
         },
       },
-    });
+    }); // короче, код для обновления роли участника (не админа), а так же возврат обновленной информации по ролям
+
+    return NextResponse.json(server);
   } catch (error) {
     console.log("MEMBERS_ID_PATCH", error);
     return new NextResponse("Internal Error", { status: 500 });
