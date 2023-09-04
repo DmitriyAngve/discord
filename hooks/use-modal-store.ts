@@ -8,7 +8,8 @@ export type ModalType =
   | "invite"
   | "editServer"
   | "members"
-  | "createChannel";
+  | "createChannel"
+  | "leaveServer";
 // определяет пользовательский тип "ModalType", который имеет одно значение "createServer" - это ограниченный набор возможных типов модальных окон
 interface ModalData {
   server?: Server;
