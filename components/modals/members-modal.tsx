@@ -17,7 +17,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserAvatar } from "@/components/user-avatar";
 
 import {
+  Check,
   MoreVertical,
+  Shield,
   ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
@@ -80,8 +82,27 @@ export const MembersModal = () => {
                       <DropdownMenuContent side="left">
                         <DropdownMenuSub>
                           <DropdownMenuSubTrigger className="flex items-center">
-                            <ShieldQuestion />
+                            <ShieldQuestion className="w-4 h-4 mr-2" />
+                            <span>Role</span>
                           </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              <DropdownMenuItem>
+                                <Shield className="h-4 w-4 mr-2" />
+                                Guest
+                                {member.role === "GUEST" && (
+                                  <Check className="h-4 w-4 ml-auto" />
+                                )}
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <ShieldCheck className="h-4 w-4 mr-2" />
+                                Moderator
+                                {member.role === "MODERATOR" && (
+                                  <Check className="h-4 w-4 ml-auto" />
+                                )}
+                              </DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
                         </DropdownMenuSub>
                       </DropdownMenuContent>
                     </DropdownMenu>
