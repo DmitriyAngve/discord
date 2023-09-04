@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
+import { MemberRole } from "@prisma/client";
 
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { MemberRole } from "@prisma/client";
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +15,7 @@ export async function POST(req: Request) {
     if (!profile) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+
     if (!serverId) {
       return new NextResponse("Server ID missing", { status: 400 });
     }
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
       return new NextResponse("Name cannot be 'general'", { status: 400 });
     }
 
-    const server = db.server.update({
+    const server = await db.server.update({
       where: {
         id: serverId,
         members: {
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(server);
   } catch (error) {
-    console.log("CHANNEL_POST", error);
+    console.log("CHANNELS_POST", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

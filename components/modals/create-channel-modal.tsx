@@ -3,7 +3,6 @@
 import qs from "query-string";
 import axios from "axios";
 import * as z from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ChannelType } from "@prisma/client";
@@ -25,7 +24,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { useParams, useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal-store";
 import {
   Select,
   SelectContent,
@@ -33,10 +33,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { useParams, useRouter } from "next/navigation";
-
-import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   // проверяем данные в форме создания сервера, чтобы удостовериться, что они введены верно
@@ -52,11 +48,9 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType), // значение в этом поле должно быть одним из перечисленных в "ChannelType" в "prisma.schema"
 });
 
-export const CreateChanneModal = () => {
+export const CreateChannelModal = () => {
   const { isOpen, onClose, type } = useModal();
-
   const router = useRouter();
-
   const params = useParams();
 
   const isModalOpen = isOpen && type === "createChannel";
