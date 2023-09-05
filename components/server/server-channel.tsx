@@ -16,7 +16,7 @@ interface ServerChannelProps {
 }
 
 const iconMap = {
-  [ChannelType.TEXT]: Hash,
+  [ChannelType.TEXT]: Hash, // Hash - lucide icon
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video,
 };
