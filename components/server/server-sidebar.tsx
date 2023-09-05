@@ -203,7 +203,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             />
             <div className="space-y-[2px]">
               {members.map((member) => (
-                <ServerMember />
+                <ServerMember key={member.id} member={member} server={server} />
               ))}
             </div>
           </div>
