@@ -11,7 +11,8 @@ export type ModalType =
   | "createChannel"
   | "leaveServer"
   | "deleteServer"
-  | "deleteChannel";
+  | "deleteChannel"
+  | "editChannel";
 // определяет пользовательский тип "ModalType", который имеет одно значение "createServer" - это ограниченный набор возможных типов модальных окон
 interface ModalData {
   server?: Server;
