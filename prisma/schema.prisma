@@ -31,7 +31,7 @@ model Server{
   inviteCode String @unique
 
   profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade) 
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   // "@relation" - это аннотация (декоратор), указывающий на наличие отношения между двумя сущностями
   // "fields:[profileId]" - это массив полей текущей сущности, которые связаны с "Profile" 
   // "references: [id]" - это массив полей, с которыми связывается "profileId" текущей сущности
@@ -62,8 +62,15 @@ model Member{
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
+  messages Message[]
+  directMessages DirectMessage[]
+
+  conversationsInitiated Conversation[] @relation("MemberOne") // поле представляет собой отношение между текущей моделью и моделью Conversation. Это отношение представлено как "MemberOne". Именно участник инициировал разговор. Это поле будет содержать массив
+  conversationsReceived Conversation[] @relation("MemberTwo")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 
   @@index([profileId])
   @@index([serverId])
@@ -75,20 +82,79 @@ enum ChannelType {
   VIDEO
 }
 
-model Channel{
+model Channel {
   id String @id @default(uuid())
   name String
   type ChannelType @default(TEXT)
 
   profileId String
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  
+
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([serverId])
   @@index([profileId])
+  @@index([serverId])
+}
+
+model Message {
+  id String @id @default(uuid()) // генерируем уникальный id
+  content String @db.Text // поле для хранения текстового содержимого сообщения
+
+  fileUrl String? @db.Text // ? - помечено как необхятальное. Поле для хранения ссылки на файл, связанный с сообщением
+
+  memberId String // поле для связи с идентивикатором участника беседы, отправивщий сообщение
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade) // аннотация "@relation" указывает на отношение между полем "[memberId]" и моделью "Member". Тут указывается, что "memberId" связан с полем id в модели Member и использует опцию onDelete: Cascade - что означает, что при удалении записи удалятся связанные записи в модели Member
+  
+  channelId String // это полеиспользуется дял связи с идентификатором канала к которому относится сообщение
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade) // аналогично ситуации с Member
+
+  deleted Boolean @default(false) // это поле используется для обозначения удаленных сообщений  - по умолчанию false, что означает, что сообщение не удалено
+
+  createdAt DateTime @default(now()) // отслеживаем момент когда запись создана
+  updatedAt DateTime @updatedAt // отслеживаем момент когда запись изменена
+
+  @@index([channelId]) // это аннотации определяют индексы для полей "channelid" и "memberId". Индексы улучшают производительность при выполнении запросов к БД на основе этих полей
+  @@index([memberId]) //
+}
+
+model Conversation {
+  id String @id @default(uuid())
+
+  memberOneId String
+  memberOne Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+
+  memberTwoId String
+  memberTwo Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+
+  directMessages DirectMessage[]
+
+  @@index([memberTwoId])
+
+  @@unique([memberOneId, memberTwoId]) // это уникальное ограничение, которое гарантирует, что комбинация значений в полях memberOneId и memberTwoId будет уникальной. То есть, не может существовать две записи с одинаковой комбинацией значений этих двух полей (используется для уникальности в отоношениях межжду двумя сущностями)
+}
+
+model DirectMessage {
+  id String @id @default(uuid())
+  content String @db.Text
+  fileUrl String? @db.Text
+
+  memberId String
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  conversationId String
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([conversationId])
 }
