@@ -37,6 +37,17 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
     params.memberId
   ); // ищем беседу между наши профилем (currentMemeber.id) и пользователем, на которого кликнули (params.memberId)
 
+  if (!conversation) {
+    return redirect(`/servers/${params.serverId}`);
+  } // если беседы нет, то автоматом перекидывает на general
+
+  const { memberOne, memberTwo } = conversation; // Если при клики удалось создать беседу или найти существуюущую (findFirst) = > тогда достанем из conversation обоих пользователей
+
+  const otherMember =
+    memberOne.profileId === profile.id ? memberTwo : memberOne; // сравниваю участника mmeberOne с profile.id это проверка на то, принадлежит ли memeberOne текущему профилю (profile).
+  // Если memberOne.profileId соответствует текущему профилю profile, то otherMember устанавливается равынм membrTwo. Если условие не выполняется, то otherMember устанавливается равным memberOne
+  // По сути, это условие опрелеляет, кто из двух участников чата не является текущим профилием
+
   return <div>Member ID Page!</div>;
 };
 export default MemberIdPage;
