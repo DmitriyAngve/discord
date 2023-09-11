@@ -11,6 +11,7 @@ export const config = {
   // bodyParser - параметр, указывающий должен ли Next.js ыполнять автоматический разбор (парсинг) тела запроса, отправленного клиентом. Установил в false - чтобы парсинг не выполнялся автоматически
 };
 
+// Обработчик сокс-сервера в Next.js
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   // тут проверка наличия io на серверном соксе (socket.server.io). Если он не существует, то выполняются дальнейшие шаги
   if (!res.socket.server.io) {
@@ -28,6 +29,8 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
     // присвоение созданного io объекта серверному соксу
     res.socket.server.io = io;
   }
-
+  // завершение ответа
   res.end();
-}; // Обработчик сокс-сервера в Next.js
+};
+
+export default ioHandler;
