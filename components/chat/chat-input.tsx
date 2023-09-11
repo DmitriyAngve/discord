@@ -24,6 +24,8 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+  const { isOpen } = useModal();
+
   // создаем экземпляр формы с использованием "react-hook-form". Это позволяет "react-hook-form" знать, какие поля ожидать и какие типы данных они должны иметь. Внутри тип "<z.infer<typeof formSchema>>", который извлекает тип данных из схемы "formSchema"
   const { onOpen } = useModal();
   const router = useRouter();
@@ -69,7 +71,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                 <div className="relative p-4 pb-6">
                   <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => onOpen("messageFile", { apiUrl, query })}
                     className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                   >
                     <Plus className="text-white dark:text-[#313338]" />
