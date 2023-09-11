@@ -1,13 +1,12 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-
 import { io as ClientIO } from "socket.io-client";
 
 // определеям структуру объекта состояния, который будет храниться в контексте
 type SocketContextType = {
   socket: any | null; // это поле, где будет храниться Websocket объект
-  isConnected: boolean; // это поле указывает, установлено ли Websocket соединние
+  isConnected: boolean;
 };
 
 // это создание конекста с использованием createContext из React. Создается контекст с начальным значением, где socket устанавливается в null, а isConnected в false
@@ -25,13 +24,14 @@ export const useSocket = () => {
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   // тут деструктурируем пропсы children, которыепредставляют собой дочерние компоненты, обернутые провайдером
   const [socket, setSocket] = useState(null); // здесь создается состояние socket, которое будет хранить WebSocket, оно будет изменено, когда WebSocket будет установлен
-  const [isConnected, SetIsConnected] = useState(false); // здесь создается состояние, которое указывает, установлено ли WebSocket соединение
+  const [isConnected, setIsConnected] = useState(false); // здесь создается состояние, которое указывает, установлено ли WebSocket соединение
 
   useEffect(() => {
     // этот эффект, который будет выполняться после монтирования компонента.
     // для управления жизненным циклом WebSocket'а
 
     // Внутри создается новый WebSocket с использованием ClientIO. Этот WebSocket настроен на подключение к серверу с URL, полученным из переменных окружения и на использование определенного пути "api/socket/io"
+
     const socketInstance = new (ClientIO as any)(
       process.env.NEXT_PUBLIC_SITE_URL!,
       {
@@ -42,11 +42,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     // здесь устанавливается обработчик события connect. Этот обработчик вызывается, когда соединение с WebSocket-сервером успешно. Внутри SetIsConnected(true) - что означает, что соединений установленно
     socketInstance.on("connect", () => {
-      SetIsConnected(true);
+      setIsConnected(true);
     });
 
     socketInstance.on("disconnect", () => {
-      SetIsConnected(false);
+      setIsConnected(false);
     });
 
     // Обновляем состояние компонента
