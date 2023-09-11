@@ -11,12 +11,11 @@ import { redirect } from "next/navigation";
 interface ChannelIdPageProps {
   params: {
     serverId: string;
-    channelId: string; // смотри на структуру папок ([serverId] и [channelId] - обе внутри моего URL)
+    channelId: string;
   };
 }
 
 const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
-  // let's fetch the current Profile
   const profile = await currentProfile();
 
   if (!profile) {

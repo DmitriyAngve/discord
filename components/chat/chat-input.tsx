@@ -1,12 +1,16 @@
 "use client";
 
+import * as z from "zod";
+import axios from "axios";
+import qs from "query-string";
 import { useForm } from "react-hook-form";
-import * as z from "zod"; // зод для проверки схем данных из БД
-
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus, Smile } from "lucide-react";
+import { useModal } from "@/hooks/use-modal-store";
+// import { EmojiPicker } from "@/components/emoji-picker";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -20,22 +24,37 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+  // создаем экземпляр формы с использованием "react-hook-form". Это позволяет "react-hook-form" знать, какие поля ожидать и какие типы данных они должны иметь. Внутри тип "<z.infer<typeof formSchema>>", который извлекает тип данных из схемы "formSchema"
+  const { onOpen } = useModal();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
-    // создаем экземпляр формы с использованием "react-hook-form". Это позволяет "react-hook-form" знать, какие поля ожидать и какие типы данных они должны иметь. Внутри тип "<z.infer<typeof formSchema>>", который извлекает тип данных из схемы "formSchema"
-    resolver: zodResolver(formSchema), // "zodResolver" используется для проверки данных формы на основе схемы zod. Позволяет автоматически валидировать данные формы
+    resolver: zodResolver(formSchema),
     defaultValues: {
       // объект, определеяющий значения по умолчанию для полей формы
       content: "",
     },
   });
 
-  const isLoading = form.formState.isSubmitting; // определяем, отправляется ли форма в данный момент.
+  const isLoading = form.formState.isSubmitting;
+  // определяем, отправляется ли форма в данный момент.
   // form - это объект, представляющий форму, созданную при помощи useForm
   // formState - это часть объекта формы, которая хранит состояние формы и различные свойства формы
   // isSibmitting - это свойство определяет, выполняется ли в данный момент процесс отправки формы
 
-  const onSubmit = async (value: z.infer<typeof formSchema>) => {
-    console.log(value);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      });
+
+      await axios.post(url, values);
+
+      form.reset();
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -50,7 +69,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                 <div className="relative p-4 pb-6">
                   <button
                     type="button"
-                    onClick={() => }
+                    onClick={() => {}}
                     className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                   >
                     <Plus className="text-white dark:text-[#313338]" />
@@ -63,6 +82,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     }`}
                     {...field}
                   />
+                  <div className="absolute top-7 right-8"></div>
                 </div>
               </FormControl>
             </FormItem>
