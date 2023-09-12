@@ -52,7 +52,35 @@ export async function GET(req: Request) {
           createdAt: "desc", // сообщения упорядочиваются по времени создания в порядке убывания
         },
       });
-    }
+    } else {
+      messages = await db.message.findMany({
+        take: MESSAGES_BATCH,
+        where: {
+          channelId,
+        },
+        include: {
+          member: {
+            include: {
+              profile: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } // тут начинается загрузки сообщений без учёта пагинации с самого начала списка.
+
+    let nextCursor = null; // так как я еще не знаю какой будет курсор для следующей страницы (nextCursor - будет хранить идентификатор, который позволит определить с какой страницы начинать загрузку следующую порцию сообщений)
+
+    if (messages.length === MESSAGES_BATCH) {
+      nextCursor = messages[MESSAGES_BATCH - 1].id;
+    } // проверяем, есть ли еще сообщения на сервере, которые могут быть загружены на следующей страниц (если длина messages = MESSAGE_BATCH). В этом случае, nextCursor устанавливается в идентификатор последнего сообщения из текущей порции сообщений
+
+    return NextResponse.json({
+      items: messages,
+      nextCursor,
+    });
   } catch (error) {
     console.log("[MESSAGES_GET]", error);
     return new NextResponse("Internal Error", { status: 500 });
