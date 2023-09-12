@@ -1,11 +1,12 @@
 "use client";
 
-import { Member, Profile } from "@prisma/client";
+import { Member, MemberRole, Profile } from "@prisma/client";
 
 import { UserAvatar } from "@/components/user-avatar";
 import { ActionTooltip } from "@/components/action-tooltip";
 
-import { ShieldAlert, ShieldCheck } from "lucide-react";
+import { FileIcon, ShieldAlert, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
 interface ChatItemProps {
   id: string;
@@ -40,6 +41,16 @@ export const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
+  const fileType = fileUrl?.split(".").pop();
+
+  const isAdmin = currentMember.role === MemberRole.ADMIN;
+  const isModerator = currentMember.role === MemberRole.MODERATOR;
+  const isOwner = currentMember.role === member.id;
+  const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
+  const canEditMessage = !deleted && isOwner && !fileUrl;
+  const isPDF = fileType === "pdf" && fileUrl;
+  const isImage = !isPDF && fileUrl;
+
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
@@ -60,7 +71,34 @@ export const ChatItem = ({
               {timestamp}
             </span>
           </div>
-          {content}
+          {isImage && (
+            <a
+              href={fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+            >
+              <Image
+                src={fileUrl}
+                alt={content}
+                fill
+                className="object-cover"
+              />
+            </a>
+          )}
+          {isPDF && (
+            <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+              <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+              <a
+                href={fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+              >
+                PDF file
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
