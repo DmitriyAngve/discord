@@ -1,15 +1,22 @@
 "use client";
 
 import * as z from "zod";
+
 import axios from "axios";
+
 import qs from "query-string";
+
 import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useModal } from "@/hooks/use-modal-store";
+
 import { Plus } from "lucide-react";
+
 import { useRouter } from "next/navigation";
+
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "@/components/emoji-picker";
 
 interface ChatInputProps {
@@ -29,6 +36,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
   // создаем экземпляр формы с использованием "react-hook-form". Это позволяет "react-hook-form" знать, какие поля ожидать и какие типы данных они должны иметь. Внутри тип "<z.infer<typeof formSchema>>", который извлекает тип данных из схемы "formSchema"
   const { onOpen } = useModal();
   const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -85,7 +93,11 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                   />
                   <div className="absolute top-7 right-8">
-                    <EmojiPicker />
+                    <EmojiPicker
+                      onChange={(emoji: string) =>
+                        field.onChange(`${field.value} ${emoji}`)
+                      }
+                    />
                   </div>
                 </div>
               </FormControl>
