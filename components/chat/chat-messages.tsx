@@ -11,6 +11,7 @@ import { useChatQuery } from "@/hooks/use-chat-query";
 
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -43,7 +44,10 @@ export const ChatMessages = ({
   paramValue,
   type,
 }: ChatMessagesProps) => {
-  const queryKey = `chat:${chatId}`; // создается ключ запроса, который может использоваться для кеширования запросов
+  // создается ключ запроса, который может использоваться для кеширования запросов
+  const queryKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
+  const updateKey = `chat:${chatId}:messages:update`;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
@@ -52,6 +56,7 @@ export const ChatMessages = ({
       paramKey,
       paramValue,
     });
+  useChatSocket({ queryKey, addKey, updateKey });
 
   if (status === "loading") {
     return (
