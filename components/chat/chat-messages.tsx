@@ -89,7 +89,9 @@ export const ChatMessages = ({
 
   return (
     <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
+      {/* Если нет следующей страницы сообщений (hasNextPage = false), то это позволяет растянуть оставшееся свободное пространство в контейнере */}
       {!hasNextPage && <div className="flex-1" />}
+      {/* Если hasNextPage = false, то отображается компонент <ChatWelcome /> - то есть приветствие тогда, когда нет следующей страницы списка сообщений */}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
       {hasNextPage && (
         <div className="flex justify-center">
