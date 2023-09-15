@@ -1,7 +1,7 @@
-Discord Clone
+# Discord Clone
 
 Welcome to the Discord Clone project! This project is built with Next.js 13, React, Clerk, Socket.io, Prisma, TailwindCSS, ShadcnUI, MySQL, UploadThing, and LiveKit. Here's an overview of the technologies used and key features of the project:
-Technologies Used
+## Technologies Used
 - Next.js 13: The foundation of the project, providing server-side rendering and routing.
 - React: Used for building the user interface and managing the state of the application.
 - Clerk: Provides authentication and user management.
@@ -13,7 +13,9 @@ Technologies Used
 - UploadThing: Used for sending attachments as messages.
 - LiveKit: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
 
-Key Features
+[Live Demo](https://discord-production-b40f.up.railway.app/)
+
+## Features
 - Real-time Messaging: Utilizing Socket.io for real-time messaging functionality.
 - Attachments: Send attachments as messages using UploadThing.
 - Message Editing and Deletion: Edit and delete messages in real-time for all users.
@@ -32,10 +34,9 @@ Key Features
 - MySQL Database: Data is stored in a MySQL database using Planetscale.
 - Authentication: Implement authentication and user management with Clerk.
 
-Getting Started
+## Installation and Usage
 
 To get started with this project, follow these steps:
-
     Clone this repository to your local machine.
     Install the required dependencies using npm install.
     Configure the environment variables, such as database connections and Clerk settings.
