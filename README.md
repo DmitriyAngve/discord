@@ -37,8 +37,8 @@ Welcome to the Discord Clone project! This project is built with Next.js 13, Rea
 ## Installation and Usage
 
 To get started with this project, follow these steps:
-    Clone this repository to your local machine.
-    Install the required dependencies using npm install.
-    Configure the environment variables, such as database connections and Clerk settings.
-    Run the development server using npm run dev.
-    Open your browser and navigate to http://localhost:3000 to access the application.
+1. Clone this repository to your local machine.
+2. Install the required dependencies using npm install.
+3. Configure the environment variables, such as database connections and Clerk settings.
+4. Run the development server using npm run dev.
+5. Open your browser and navigate to http://localhost:3000 to access the application.
