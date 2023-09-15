@@ -39,8 +39,21 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
     return (
       <div className="flex flex-col flex-1 justify-center items-center">
         <Loader2 className="h-7 w-7 text-zinc-500 aimante-spin my-4" />
-        <p>Loading...</p>
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">Loading...</p>
       </div>
     );
   }
+
+  return (
+    <LiveKitRoom
+      data-lk-theme="default"
+      serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
+      token={token}
+      connect={true}
+      video={video}
+      audio={audio}
+    >
+      <VideoConference />
+    </LiveKitRoom>
+  );
 };
