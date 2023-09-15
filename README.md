@@ -2,16 +2,16 @@
 
 Welcome to the Discord Clone project! This project is built with Next.js 13, React, Clerk, Socket.io, Prisma, TailwindCSS, ShadcnUI, MySQL, UploadThing, and LiveKit. Here's an overview of the technologies used and key features of the project:
 ## Technologies Used
-- Next.js 13: The foundation of the project, providing server-side rendering and routing.
-- React: Used for building the user interface and managing the state of the application.
-- Clerk: Provides authentication and user management.
-- Socket.io: Enables real-time messaging and updates.
-- Prisma: An Object-Relational Mapping (ORM) tool used for database operations.
-- TailwindCSS: A utility-first CSS framework for building custom designs quickly.
-- ShadcnUI: A UI component library for enhancing the visual appearance of the application.
-- MySQL: A relational database system used for storing data.
-- UploadThing: Used for sending attachments as messages.
-- LiveKit: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
+- **Next.js 13**: The foundation of the project, providing server-side rendering and routing.
+- **React**: Used for building the user interface and managing the state of the application.
+- **Clerk**: Provides authentication and user management.
+- **Socket.io**: Enables real-time messaging and updates.
+- **Prisma**: An Object-Relational Mapping (ORM) tool used for database operations.
+- **TailwindCSS**: A utility-first CSS framework for building custom designs quickly.
+- **ShadcnUI**: A UI component library for enhancing the visual appearance of the application.
+- **MySQL**: A relational database system used for storing data.
+- **UploadThing**: Used for sending attachments as messages.
+- **LiveKit**: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
 
 [Live Demo](https://discord-production-b40f.up.railway.app/)
 
@@ -37,8 +37,18 @@ Welcome to the Discord Clone project! This project is built with Next.js 13, Rea
 ## Installation and Usage
 
 To get started with this project, follow these steps:
-1. Clone this repository to your local machine.
-2. Install the required dependencies using npm install.
-3. Configure the environment variables, such as database connections and Clerk settings.
-4. Run the development server using npm run dev.
-5. Open your browser and navigate to http://localhost:3000 to access the application.
+1. Clone this repository to your local machine
+2. Install the required dependencies using
+ ```bash
+ npm install
+ ```
+4. Configure the environment variables, such as database connections and Clerk settings.
+5. Run the development server using
+```bash
+npm run dev
+```
+7. Open your browser and navigate to
+```bash
+http://localhost:3000
+```
+to access the application.
