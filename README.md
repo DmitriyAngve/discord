@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Discord Clone
 
-## Getting Started
+Welcome to the Discord Clone project! This project is built with Next.js 13, React, Clerk, Socket.io, Prisma, TailwindCSS, ShadcnUI, MySQL, UploadThing, and LiveKit. Here's an overview of the technologies used and key features of the project:
+## Technologies Used
+- **Next.js 13**: The foundation of the project, providing server-side rendering and routing.
+- **React**: Used for building the user interface and managing the state of the application.
+- **Clerk**: Provides authentication and user management.
+- **Socket.io**: Enables real-time messaging and updates.
+- **Prisma**: An Object-Relational Mapping (ORM) tool used for database operations.
+- **TailwindCSS**: A utility-first CSS framework for building custom designs quickly.
+- **ShadcnUI**: A UI component library for enhancing the visual appearance of the application.
+- **MySQL**: A relational database system used for storing data.
+- **UploadThing**: Used for sending attachments as messages.
+- **LiveKit**: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
 
-First, run the development server:
+[Live Demo](https://discord-production-b40f.up.railway.app/)
 
+## Features
+- Real-time Messaging: Utilizing Socket.io for real-time messaging functionality.
+- Attachments: Send attachments as messages using UploadThing.
+- Message Editing and Deletion: Edit and delete messages in real-time for all users.
+- Channels: Create text, audio, and video call channels.
+- 1:1 Conversations: Members can engage in 1:1 conversations.
+- Video Calls: Members can have 1:1 video calls.
+- Member Management: Ability to kick members and change roles (Guest, Moderator).
+- Invite System: Implement a unique invite link generation and a fully working invite system.
+- Infinite Loading: Messages are loaded in batches of 10, using @tanstack/query.
+- Server Customization: Allow server creation and customization.
+- Beautiful UI: Designed with TailwindCSS and ShadcnUI for a visually appealing interface.
+- Responsiveness: The project is fully responsive with a mobile-friendly UI.
+- Light/Dark Mode: Toggle between light and dark modes for user preference.
+- Websocket Fallback: If websockets are not supported, the system gracefully falls back to polling with alerts.
+- ORM: Prisma is used for convenient database operations.
+- MySQL Database: Data is stored in a MySQL database using Planetscale.
+- Authentication: Implement authentication and user management with Clerk.
+
+## Installation and Usage
+
+To get started with this project, follow these steps:
+1. Clone this repository to your local machine
+2. Install the required dependencies using
+ ```bash
+ npm install
+ ```
+4. Configure the environment variables, such as database connections and Clerk settings.
+5. Run the development server using
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+7. Open your browser and navigate to
+```bash
+http://localhost:3000
+```
+   to access the application.
