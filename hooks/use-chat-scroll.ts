@@ -75,6 +75,7 @@ export const useChatScroll = ({
     };
 
     // здесь вызываю shouldAutoScroll и проверяю, возвращает ли она true. Если да, то должна выполнится плавная прокрутка.
+
     if (shouldAutoScroll()) {
       setTimeout(() => {
         bottomRef.current?.scrollIntoView({
