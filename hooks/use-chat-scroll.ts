@@ -64,8 +64,11 @@ export const useChatScroll = ({
       }
 
       // вычисляем расстояние от нижней границы содержимого элемента topDiv до места, где находится текущая прокрутка и сравниваем его с 100.
+      
       // topDiv.scrollHeight - высота всего элемента topDiv
+
       // topDiv.scrollTop - это текущая позиция прокрутки элемента topDiv
+
       // topDiv.clientHeight - это высота видимой области элемента topDiv
       const distanceFromBottom =
         topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight;
