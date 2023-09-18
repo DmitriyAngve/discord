@@ -5,16 +5,18 @@ Welcome to the Discord Clone project! This project is built with Next.js 13, Rea
 ## Technologies Used
 - **Next.js 13**: The foundation of the project, providing server-side rendering and routing.
 - **React**: Used for building the user interface and managing the state of the application.
-- **Clerk**: Provides authentication and user management.
-- **Prisma**: An Object-Relational Mapping (ORM) tool used for database operations.
-- **TailwindCSS**: A utility-first CSS framework for building custom designs quickly.
-- **ShadcnUI**: A UI component library for enhancing the visual appearance of the application.
-- **MySQL**: A relational database system used for storing data.
+- **TypeScript**: Improving code quality and productivity with static typing.
+- **Clerk**: Authentication and user management for enhanced security.
+- **Prisma**: Secure and efficient database operations with a type-safe query language.
+- **TailwindCSS**:  A utility-first CSS framework for simplified and consistent styling.
+- **ShadcnUI**: Reusable UI component library for visual consistency.
+- **MySQL**: Storing and managing data in a relational database.
 - **UploadThing**: Used for sending attachments as messages.
 - **Socket.io**: Enables real-time messaging, updates, and chat functionality in the application.
 - **LiveKit**: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
+- **Webhooks**: Integrating external services and automating notifications and actions.
 
-[Live Demo](https://discord-production-b40f.up.railway.app/)
+[Explore the Live Demo](https://discord-production-b40f.up.railway.app/)
 
 ## Features
 - Real-time Messaging: Utilizing Socket.io for real-time messaging functionality.
