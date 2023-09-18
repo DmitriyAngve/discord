@@ -1,12 +1,11 @@
 # Discord Clone
 
-Welcome to the Discord Clone project! This project is built with Next.js 13, React, Clerk, Socket.io, Prisma, TailwindCSS, ShadcnUI, MySQL, UploadThing, and LiveKit. Here's an overview of the technologies used and key features of the project.
+Welcome to the Discord Clone project! This project is built with Next.js 13, React, Clerk, Socket.io, Prisma, TailwindCSS, ShadcnUI, MySQL, UploadThing, and LiveKit. Here's an overview of the technologies used and key features of the project:
 
 ## Technologies Used
 - **Next.js 13**: The foundation of the project, providing server-side rendering and routing.
 - **React**: Used for building the user interface and managing the state of the application.
 - **Clerk**: Provides authentication and user management.
-- **Socket.io**: Enables real-time messaging and updates.
 - **Prisma**: An Object-Relational Mapping (ORM) tool used for database operations.
 - **TailwindCSS**: A utility-first CSS framework for building custom designs quickly.
 - **ShadcnUI**: A UI component library for enhancing the visual appearance of the application.
