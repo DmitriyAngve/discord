@@ -37,18 +37,45 @@ Welcome to the Discord Clone project! This project is built with Next.js 13, Rea
 ## Installation and Usage
 
 To get started with this project, follow these steps:
-1. Clone this repository to your local machine
-2. Install the required dependencies using
+### 1. Clone this repository to your local machine
+```bash
+git clone https://github.com/DmitriyAngve/discord
+```
+
+### 2. Install the required dependencies using
+
  ```bash
  npm install
  ```
-4. Configure the environment variables, such as database connections and Clerk settings.
-5. Run the development server using
+
+### 3. Setup .env file
+
+```js
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+OPENAI_API_KEY=
+REPLICATE_API_TOKEN=
+DATABASE_URL=
+STRIPE_API_KEY=
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+STRIPE_WEBHOOK_SECRET=
+```
+### 4. Setup Prisma
+Add MySQL Database
+
+```shell
+npx prisma db push
+```
+
+### 5. Run the development server using
 ```bash
 npm run dev
 ```
-7. Open your browser and navigate to
+### 6. Open your browser and navigate to
 ```bash
 http://localhost:3000
 ```
-   to access the application.
+to access the application.
