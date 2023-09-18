@@ -14,7 +14,7 @@ Welcome to the Discord Clone project! This project is built with Next.js 13, Rea
 - **UploadThing**: Used for sending attachments as messages.
 - **Socket.io**: Enables real-time messaging, updates, and chat functionality in the application.
 - **LiveKit**: Enables the creation of text, audio, and video call channels, as well as 1:1 conversations and video calls.
-- **Webhooks**: Integrating external services and automating notifications and actions.
+- **Webhook**: Integrating external services and automating notifications and actions.
 
 [Explore the Live Demo](https://discord-production-b40f.up.railway.app/)
 
