@@ -59,12 +59,13 @@ export const useChatScroll = ({
       }
 
       // если topDiv отсутствует (!topDiv), то ф-ия "shouldAutoScroll" не выполняется
+
       if (!topDiv) {
         return false;
       }
 
       // вычисляем расстояние от нижней границы содержимого элемента topDiv до места, где находится текущая прокрутка и сравниваем его с 100.
-      
+
       // topDiv.scrollHeight - высота всего элемента topDiv
 
       // topDiv.scrollTop - это текущая позиция прокрутки элемента topDiv
