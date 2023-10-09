@@ -23,7 +23,6 @@ export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
       <PopoverTrigger>
         <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
       </PopoverTrigger>
-      {/* side="right" sideOffset={40} - это смещение на 40px вправо от элемента вызова - то есть позволяет управлять отступом между всплывающим окном и элементом вызова по горизонтали*/}
       <PopoverContent
         side="right"
         sideOffset={40}
